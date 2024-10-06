@@ -52,6 +52,7 @@ def variables():
 
     }
 
+# ===================== COMMON ===============================================
 @pytest.fixture(scope="module")
 def browser():
     with sync_playwright() as p:
@@ -61,35 +62,13 @@ def browser():
         yield page
         browser.close()
 
+# ===================== FORM BINDINGS ===============================================
+
+# -------------- procedures --------------------------------
 def open_bindings_and_wait_to_iframe(page, variables):
     page.goto(variables["URL1"])
-    # page.wait_for_selector(variables["IFRAME"])
     iframe = page.frame_locator(variables["IFRAME"])
     return iframe
-
-def fill_input_box(iframe, variables, text):
-    iframe.locator(variables["INPUT_INPUT"]).fill(text)
-
-def read_input_box(iframe, variables):
-    return iframe.locator(variables["INPUT_INPUT"]).input_value()
-
-def read_input_label(iframe, variables):
-    text = iframe.locator(variables["INPUT_TEXT"]).text_content()
-    print(f"input label: {text}")
-    return text
-
-def check_the_checkbox(iframe, variables):
-    checkbox = iframe.locator(variables["CHECKBOX"])
-    checkbox.check()
-
-def unckeck_the_checkbox(iframe, variables):
-    checkbox = iframe.locator(variables["CHECKBOX"])
-    checkbox.uncheck()
-
-def is_checkbox_checked(iframe, variables):
-    checkbox = iframe.locator(variables["CHECKBOX"])
-    checked = checkbox.is_checked()
-    return checked
 
 def check_multi_checkbox(names, iframe, variables):
     if 'Jack' in names:
@@ -128,6 +107,39 @@ def is_checkbox_Mike_checked(iframe, variables):
     checked = checkbox.is_checked()
     return checked
 
+def is_checkbox_checked(iframe, variables):
+    checkbox = iframe.locator(variables["CHECKBOX"])
+    checked = checkbox.is_checked()
+    return checked
+
+def check_radio(radio, iframe, variables):
+    if radio == 'One':
+        radio = iframe.locator(variables["RADIO_ONE"])
+        radio.check()
+    if radio == 'Two':
+        radio = iframe.locator(variables["RADIO_TWO"])
+        radio.check()
+
+# -------------- elemnt handlers ----------------------------
+def fill_input_box(iframe, variables, text):
+    iframe.locator(variables["INPUT_INPUT"]).fill(text)
+
+def read_input_box(iframe, variables):
+    return iframe.locator(variables["INPUT_INPUT"]).input_value()
+
+def read_input_label(iframe, variables):
+    text = iframe.locator(variables["INPUT_TEXT"]).text_content()
+    print(f"input label: {text}")
+    return text
+
+def check_the_checkbox(iframe, variables):
+    checkbox = iframe.locator(variables["CHECKBOX"])
+    checkbox.check()
+
+def unckeck_the_checkbox(iframe, variables):
+    checkbox = iframe.locator(variables["CHECKBOX"])
+    checkbox.uncheck()
+
 def read_multi_checkbox_label(iframe, variables):
     text = iframe.locator(variables["MULTI_CHECKBOX_LABEL"]).text_content()
     print(f"multi checkbox label: {text}")
@@ -147,14 +159,6 @@ def read_multi_select_label(iframe, variables):
     print(f"multi select label: {text}")
     return text
 
-def check_radio(radio, iframe, variables):
-    if radio == 'One':
-        radio = iframe.locator(variables["RADIO_ONE"])
-        radio.check()
-    if radio == 'Two':
-        radio = iframe.locator(variables["RADIO_TWO"])
-        radio.check()
-
 def read_radio_label(iframe, variables):
     text = iframe.locator(variables["RADIO_LABEL"]).text_content()
     return text
@@ -163,6 +167,8 @@ def open_modals_and_wait_to_iframe(page, variables):
     page.goto(variables["URL2"])
     iframe = page.frame_locator(variables["IFRAME"])
     return iframe
+
+# ===================== MODAL PAGE ===============================================
 
 def open_modal_window(page, variables):
     page.locator(variables["MODAL_BUTTON"]).click()
@@ -182,11 +188,58 @@ def is_modal_footer_visible(iframe, variables):
     visible = footer.is_visible()
     return visible
 
+# ===================== CRUD BINDINGS ===============================================
+
+# -------------- procedures --------------------------------
 def open_crud_and_wait_to_iframe(page, variables):
     page.goto(variables["URL3"])
     iframe = page.frame_locator(variables["IFRAME"])
     return iframe
 
+def verify_that_name_in_name_selector(iframe, variables, name):
+    names = read_name_selector(iframe, variables)
+    assert name in names
+    print(f"Name: {name} is in the name selector")
+
+def verify_that_name_is_not_in_name_selector(iframe, variables, name):
+    names = read_name_selector(iframe, variables)
+    assert name in names
+    print(f"Name: {name} is in the name selector")
+
+def create_user(iframe, variables, name, surname):
+    fill_name(iframe, variables, name)
+    fill_surname(iframe, variables, surname)
+    click_create_button(iframe, variables)
+    verify_that_name_in_name_selector(iframe, variables, surname + ", " + name)
+
+def rename_user(iframe, variables, name1, surname1, name2, surname2):
+    select_name_from_names(iframe, variables, surname1)
+    surname = read_surname(iframe, variables)
+    assert surname == surname1
+
+    fill_name(iframe, variables, name2)
+    fill_surname(iframe, variables, surname2)
+    click_update_button(iframe, variables)
+
+    surname = read_surname(iframe, variables)
+    assert surname == surname2
+
+    verify_that_name_in_name_selector(iframe, variables, surname2 + ", " + name2)
+
+def delete_user(iframe, variables, name, surname):
+    select_name_from_names(iframe, variables, surname)
+    click_delete_button(iframe, variables)
+    verify_that_name_is_not_in_name_selector(iframe, variables, surname + ", " + name)
+    print(f"Name: {name} is not already in the name selector")
+
+def count_names_in_name_selector(iframe, variables):
+    iframe.locator(variables["NAME_SELECTOR"]).click()
+    xpath = f"{variables['NAME_SELECTOR']}/option"
+    options_locator = iframe.locator(xpath)
+    count = options_locator.count()
+    return count
+
+# -------------- elemnt handlers ----------------------------
 def filter_prefix_input(iframe, variables, text):
     iframe.locator(variables["FILTER_PREFIX_INPUT"]).fill(text)
 
@@ -221,58 +274,9 @@ def read_name_selector(iframe, variables):
     name = iframe.locator(variables["NAME_SELECTOR"]).text_content()
     return name
 
-def check_name_in_name_selector(iframe, variables, name):
-    names = read_name_selector(iframe, variables)
-    assert name in names
-    print(f"Name: {name} is in the name selector")
-
-def check_name_not_in_name_selector(iframe, variables, name):
-    names = read_name_selector(iframe, variables)
-    assert name in names
-    print(f"Name: {name} is in the name selector")
-
-def create_user(iframe, variables, name, surname):
-    fill_name(iframe, variables, name)
-    fill_surname(iframe, variables, surname)
-    click_create_button(iframe, variables)
-    check_name_in_name_selector(iframe, variables, surname + ", " + name)
-
 def select_name_from_names(iframe, variables, name1):
     xpath = f"//option[contains(text(),'{name1}')]"
     iframe.locator(xpath).click()
-
-def rename_user(iframe, variables, name1, surname1, name2, surname2):
-    select_name_from_names(iframe, variables, surname1)
-    surname = read_surname(iframe, variables)
-    assert surname == surname1
-
-    fill_name(iframe, variables, name2)
-    fill_surname(iframe, variables, surname2)
-    click_update_button(iframe, variables)
-
-    surname = read_surname(iframe, variables)
-    assert surname == surname2
-
-    check_name_in_name_selector(iframe, variables, surname2 + ", " + name2)
-
-def delete_user(iframe, variables, name, surname):
-    select_name_from_names(iframe, variables, surname)
-    click_delete_button(iframe, variables)
-    check_name_not_in_name_selector(iframe, variables, surname + ", " + name)
-    print(f"Name: {name} is not already in the name selector")
-
-def count_names_in_name_selector(iframe, variables):
-    iframe.locator(variables["NAME_SELECTOR"]).click()
-    xpath = f"{variables['NAME_SELECTOR']}/option"
-    print(f"\n ----xpath: " + xpath)
-    options_locator = iframe.locator(xpath)
-    count = options_locator.count()
-
-    # options_locator = iframe.locator(f"{variables['NAME_SELECTOR']}/option")
-    # print(f"\n ----options selector: " + options_locator)
-    # count = options_locator.count()
-    print(f"\n ----Number of options in the selector: {count}")
-    return count
 
 def fill_filter(iframe, variables, param):
     iframe.locator(variables["FILTER_PREFIX_INPUT"]).fill(param)
