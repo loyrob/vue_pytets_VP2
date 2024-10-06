@@ -13,9 +13,9 @@ This repository contains a simple example Pytest and Playwright tests of the VUE
 ## Getting started
 1. Clone the repository
 ```bash
-git clone
+git clone https://github.com/loyrob/vue_pytets_VP2.git
 ```
-2. Install dependencies
+2. Install dependencies (if you don't have them already)
 ```bash
 pip install pytest playwright
 ```
