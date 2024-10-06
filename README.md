@@ -4,6 +4,17 @@ Pytest & Playwright tests for VUEJS.ORG examples website.
 
 This repository contains a simple example Pytest and Playwright tests of the VUEJS.ORG examples website.
 
+## Table of Contents
+- [Requirements](#requirements)
+- [Getting started](#getting-started)
+- [How to run](#how-to-run)
+- [Test results](#test-results)
+- [Test cases](#test-cases)
+  - [conftest.py](#conftestpy)
+  - [test_vue_crud.py](#test_vue_crudpy)
+  - [test_vue_form_bindings.py](#test_vue_form_bindingspy)
+  - [test_vue_modal.py](#test_vue_modalpy)
+
 ## Requirements
 - python 3.7 or higher
 - pip
