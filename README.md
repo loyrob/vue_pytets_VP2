@@ -2,7 +2,7 @@
 Pytest & Playwright tests for VUEJS.ORG examples website.
 =========================================================
 
-This repository contains a simple example Pytest and Playwright tests of the VUEJS.ORG examples website.
+This repository contains a simple Pytest and Playwright tests of the VUEJS.ORG examples website.
 
 ## Table of Contents
 - [Requirements](#requirements)
