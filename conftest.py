@@ -170,17 +170,17 @@ def open_modal_window(page, variables):
 def is_modal_header_visible(iframe, variables):
     header = iframe.locator(variables["MODAL_HEADER"])
     visible = header.is_visible()
-    assert visible
+    return visible
 
 def is_modal_body_visible(iframe, variables):
     body = iframe.locator(variables["MODAL_BODY"])
     visible = body.is_visible()
-    assert visible
+    return visible
 
 def is_modal_footer_visible(iframe, variables):
     footer = iframe.locator(variables["MODAL_FOOTER"])
     visible = footer.is_visible()
-    assert visible
+    return visible
 
 def open_crud_and_wait_to_iframe(page, variables):
     page.goto(variables["URL3"])
