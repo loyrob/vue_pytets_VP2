@@ -203,7 +203,7 @@ def select_name(iframe, variables, name):
     iframe.locator(variables["NAME_SELECTOR"]).fill(name)
 
 def fill_name(iframe, variables, name):
-    iframe.locator(variables["NAME_INPUT"]).fill(name)
+    iframe.locator(variables["NAME_INPMODALSUT"]).fill(name)
 
 def fill_surname(iframe, variables, surname):
     iframe.locator(variables["SURNAME_INPUT"]).fill(surname)
@@ -267,12 +267,23 @@ def count_names_in_name_selector(iframe, variables):
     print(f"\n ----xpath: " + xpath)
     options_locator = iframe.locator(xpath)
     count = options_locator.count()
-
-    # options_locator = iframe.locator(f"{variables['NAME_SELECTOR']}/option")
-    # print(f"\n ----options selector: " + options_locator)
-    # count = options_locator.count()
     print(f"\n ----Number of options in the selector: {count}")
     return count
 
 def fill_filter(iframe, variables, param):
     iframe.locator(variables["FILTER_PREFIX_INPUT"]).fill(param)
+
+def select_option(param, iframe, variables):
+    if param == 'A':
+        # iframe.locator(variables["SELECT_A"]).click()
+        iframe.locator(variables["SELECT"]).select_option(index=[1])
+    if param == 'B':
+        # iframe.locator(variables["SELECT_B"]).click()
+        iframe.locator(variables["SELECT"]).select_option(index=[2])
+    if param == 'C':
+        # iframe.locator(variables["SELECT_C"]).click()
+        iframe.locator(variables["SELECT"]).select_option(index=[3])
+
+def read_select_label(iframe, variables):
+    text = iframe.locator(variables["SELECT_LABEL"]).text_content()
+    return text

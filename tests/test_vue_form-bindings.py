@@ -60,6 +60,21 @@ def test_radio(browser, variables):
     assert checked2 == 'Picked: Two'
 
 
+def test_select(browser, variables):
+    iframe = open_bindings_and_wait_to_iframe(browser, variables)
+
+    select_option('B', iframe, variables)
+    selected = read_select_label(iframe, variables)
+    assert selected == 'Selected: B'
+
+    select_option('C', iframe, variables)
+    selected = read_select_label(iframe, variables)
+    assert selected == 'Selected: C'
+
+    select_option('A', iframe, variables)
+    selected = read_select_label(iframe, variables)
+    assert selected == 'Selected: A'
+
 def test_multiselect(browser, variables):
     iframe = open_bindings_and_wait_to_iframe(browser, variables)
 
