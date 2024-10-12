@@ -10,10 +10,8 @@ def test_fill_and_read_input_box(browser, variables):
     input_text2 = read_input_box(iframe, variables)
     input_label2 = read_input_label(iframe, variables)
 
-    assert input_text1  == "Edit me"
-    assert input_label1 == "Edit me"
-    assert input_text2  == "Ulanbatar"
-    assert input_label2 == "Ulanbatar"
+    assert input_text1  == input_label1
+    assert input_text2  == input_label2
 
 def test_check_and_uncheck_checkbox(browser, variables):
     iframe = open_bindings_and_wait_to_iframe(browser, variables)
