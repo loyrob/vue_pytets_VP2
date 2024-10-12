@@ -80,6 +80,9 @@ After running the tests, you will see the test results in the terminal.
     - save the default radio button label.
     - check the radio button.
     - verify the correct state of the radio button in both cases.
+  - <u>test_select</u> - test to select option from a select box.
+    - selects options 'B', 'C', and 'A' sequentially from the select box.
+    - verify the correct value of label.  
   - <u>test_multiselect</u> - test to select multiple options from a select box.
     - select two options from the select box.
     - verify the correct value of label.
