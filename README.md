@@ -62,7 +62,7 @@ After running the tests, you will see the test results in the terminal.
     - filter users.
     - check if the user is filtered.
     
-- [test_vue_form_bindings.py](./tests/test_vue_form_bindings.py) - contains test cases for [#form-bindings](https://vuejs.org/examples/#form-bindings).
+- [test_vue_form_bindings.py](./tests/test_vue_form-bindings.py) - contains test cases for [#form-bindings](https://vuejs.org/examples/#form-bindings).
   - <u>test_fill_and_read_input_box</u> - test to fill and read input box.
     - compare the value of the input box with the input box label.
     - fill the input box.
