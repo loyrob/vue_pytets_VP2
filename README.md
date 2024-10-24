@@ -43,7 +43,7 @@ pytest
 After running the tests, you will see the test results in the terminal.
 
 ## Test cases
-- [conftest.py](tests/conftest.py) - contains fixtures, variables and functions for the tests.
+- [conftest.py](./conftest.py) - contains fixtures, variables and functions for the tests.
 
 - [test_vue_crud.py](./tests/test_vue_crud.py) - contains test cases for [#crud](https://vuejs.org/examples/#crud).
   - <u>test_create_user</u> - test to create user.
@@ -62,7 +62,7 @@ After running the tests, you will see the test results in the terminal.
     - filter users.
     - check if the user is filtered.
     
-- [test_vue_form_bindings.py](tests/test_vue_form_bindings.py) - contains test cases for [#form-bindings](https://vuejs.org/examples/#form-bindings).
+- [test_vue_form_bindings.py](./tests/test_vue_form_bindings.py) - contains test cases for [#form-bindings](https://vuejs.org/examples/#form-bindings).
   - <u>test_fill_and_read_input_box</u> - test to fill and read input box.
     - compare the value of the input box with the input box label.
     - fill the input box.
@@ -87,7 +87,7 @@ After running the tests, you will see the test results in the terminal.
     - select two options from the select box.
     - verify the correct value of label.
   
-- [test_vue_modal.py](tests/test_vue_modal.py) - contains test case for [#modal](https://vuejs.org/examples/#modal).
+- [test_vue_modal.py](./tests/test_vue_modal.py) - contains test case for [#modal](https://vuejs.org/examples/#modal).
   - <u>test_open_modal</u> - test to open the modal window.
     - click the 'Show Modal' button. 
     - check if the modal window is opened and header, body and footer are visible.
