@@ -45,7 +45,7 @@ After running the tests, you will see the test results in the terminal.
 ## Test cases
 - [conftest.py](tests/conftest.py) - contains fixtures, variables and functions for the tests.
 
-- [test_vue_crud.py](tests/test_vue_crud.py) - contains test cases for [#crud](https://vuejs.org/examples/#crud).
+- [test_vue_crud.py](./tests/test_vue_crud.py) - contains test cases for [#crud](https://vuejs.org/examples/#crud).
   - <u>test_create_user</u> - test to create user.
     - create new user.
     - check if the user is created.
